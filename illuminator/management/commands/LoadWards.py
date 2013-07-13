@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError, handle_defaul
 from optparse import make_option
 
 from django.contrib.gis.utils import LayerMapping
-from eluminator.models import Ward
+from illuminator.models import Ward
 import os.path
 class Command(BaseCommand):
     args=''
@@ -29,7 +29,7 @@ class Command(BaseCommand):
             'geom': 'MULTIPOLYGON'
          }
          # The mapping is a dictionary
-        datafile = os.path.join(os.path.curdir,'data/Wards.shp')
+        datafile = os.path.join(os.path.curdir,'data/shp/wards/Wards.shp')
         lm = LayerMapping(Ward, datafile, mapping)
         lm.save(strict=True,progress=True)
 

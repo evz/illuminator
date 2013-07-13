@@ -1,14 +1,7 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#     * Rearrange models' order
-#     * Make sure each model has one field with primary_key=True
-# Feel free to rename the models, but don't rename db_table values or field names.
-#
-# Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
-# into your database.
 from __future__ import unicode_literals
 
 from django.contrib.gis.db import models
+
 
 class Ward(models.Model):
     perimeter = models.FloatField()
@@ -31,9 +24,13 @@ class PinsMaster(models.Model):
     pin = models.CharField(max_length=30, blank=True)
     taxcode = models.IntegerField(null=True, blank=True)
     city = models.CharField(max_length=20, blank=True)
-    amt_billed = models.TextField(blank=True) # This field type is a guess.
+    amt_billed = models.TextField(blank=True)
     year = models.IntegerField(null=True, blank=True)
     id = models.IntegerField(primary_key=True)
+
+    def __unicode__(self):
+        return self.pin
+
     class Meta:
         db_table = 'pins_master'
 
@@ -120,6 +117,10 @@ class TifDistricts(models.Model):
     the_geom = models.MultiPolygonField(srid=3435, null=True, blank=True)
     tif_id = models.CharField(max_length=5, unique=True, blank=True)
     objects = models.GeoManager()
+
+    def __unicode__(self):
+        return self.tif_name
+
     class Meta:
         db_table = 'tif_districts'
 
@@ -149,3 +150,12 @@ class TifStatusEligibility(models.Model):
     class Meta:
         db_table = 'tif_status_eligibility'
 
+class Overlap(models.Model):
+    ward = models.ForeignKey(Ward)
+    tif = models.ForeignKey(TifDistricts)
+    revenue2010 = models.CharField(max_length=15, null=True)
+    revenue2011 = models.CharField(max_length=15, null=True)
+    overlap = models.MultiPolygonField(srid=3435)
+    
+    def __unicode__(self):
+        return 'TIF %s area overlapping Ward %s' % (self.tif.tif_id, self.ward.ward)

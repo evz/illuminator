@@ -1,0 +1,11 @@
+{% block extrastyle %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css" />
+    <!--[if lte IE 8]>
+       <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.ie.css" />
+    <![endif]-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
+{% load static %}
+{% endblock %}
+<span id="{{ id }}_admin_map">
+<div id="{{ id }}_map"></div>
+</span>
