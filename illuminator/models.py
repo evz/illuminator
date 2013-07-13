@@ -124,6 +124,17 @@ class TifDistricts(models.Model):
     class Meta:
         db_table = 'tif_districts'
 
+class TifDistrict(models.Model):
+    name = models.CharField(max_length=50)
+    ind = models.CharField(max_length=20)
+    type = models.CharField(max_length=15)
+    use = models.CharField(max_length=50)
+    repealed_date = models.DateTimeField(null=True)
+    approval_date = models.DateTimeField(null=True)
+    expiration_date = models.DateTimeField(null=True)
+    geom = models.MultiPolygonField(srid=3435)
+    objects = models.GeoManager()
+
 class TifProjectionReports(models.Model):
     tif = models.ForeignKey(TifDistricts, null=True, blank=True)
     tif_name = models.CharField(max_length=100, blank=True)

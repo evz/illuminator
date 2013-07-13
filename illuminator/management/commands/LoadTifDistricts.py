@@ -6,6 +6,8 @@ from illuminator.models import TifDistrict
 import os.path
 from datetime import datetime
 
+STATUS_URL = 'http://data.cityofchicago.org/resource/3qsz-jemf.json'
+
 MULTI_TYPES = {
     1 : OGRGeomType('MultiPoint'),
     2 : OGRGeomType('MultiLineString'),
@@ -60,7 +62,6 @@ class Command(BaseCommand):
         }
         datafile = os.path.join(os.path.curdir,'data/shp/tifs/TIF_Districts.shp')
         data_layer = DataSource(datafile)[0]
-        print dir(data_layer)
         for feat in data_layer:
             f = {}
             for k in mapping.keys():
