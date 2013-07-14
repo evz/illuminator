@@ -28,6 +28,8 @@ class TifDistrict(models.Model):
     approval_date = models.DateTimeField(null=True, blank=True)
     expiration_date = models.DateTimeField(null=True, blank=True)
     ref_number = models.CharField(max_length=7, null=True)
+    revenue2010 = models.CharField(max_length=15, null=True)
+    revenue2011 = models.CharField(max_length=15, null=True)
     geom = models.MultiPolygonField(srid=3435)
     objects = models.GeoManager()
 
@@ -37,9 +39,8 @@ class TifDistrict(models.Model):
 class Overlap(models.Model):
     ward = models.ForeignKey(Ward)
     tif = models.ForeignKey(TifDistrict)
-    revenue2010 = models.CharField(max_length=15, null=True)
-    revenue2011 = models.CharField(max_length=15, null=True)
     overlap = models.MultiPolygonField(srid=3435)
     
     def __unicode__(self):
         return 'TIF %s area overlapping Ward %s' % (self.tif.tif_id, self.ward.ward)
+
