@@ -4,9 +4,8 @@ from optparse import make_option
 from django.contrib.gis.gdal import DataSource, OGRGeomType, OGRGeometry
 from illuminator.models import TifDistrict
 import os.path
+import json
 from datetime import datetime
-
-STATUS_URL = 'http://data.cityofchicago.org/resource/3qsz-jemf.json'
 
 MULTI_TYPES = {
     1 : OGRGeomType('MultiPoint'),
@@ -61,6 +60,8 @@ class Command(BaseCommand):
             'EXPIRATION': 'expiration_date',
         }
         datafile = os.path.join(os.path.curdir,'data/shp/tifs/TIF_Districts.shp')
+        xref = open(os.path.join(os.path.curdir, 'data/xref.json'), 'rb')
+        tif_id_ref = json.loads(xref.read())
         data_layer = DataSource(datafile)[0]
         for feat in data_layer:
             f = {}
@@ -73,6 +74,7 @@ class Command(BaseCommand):
                 else:
                     f[mapping.get(k)] = feat.get(k)
             f['geom'] = verify_geom(feat.geom, TifDistrict._meta.get_field('geom'))
+            f['ref_number'] = tif_id_ref[f['name']]
             tif = TifDistrict(**f)
             tif.save()
 

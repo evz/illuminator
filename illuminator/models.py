@@ -129,11 +129,15 @@ class TifDistrict(models.Model):
     ind = models.CharField(max_length=20)
     type = models.CharField(max_length=15)
     use = models.CharField(max_length=50)
-    repealed_date = models.DateTimeField(null=True)
-    approval_date = models.DateTimeField(null=True)
-    expiration_date = models.DateTimeField(null=True)
+    repealed_date = models.DateTimeField(null=True, blank=True)
+    approval_date = models.DateTimeField(null=True, blank=True)
+    expiration_date = models.DateTimeField(null=True, blank=True)
+    ref_number = models.CharField(max_length=7, null=True)
     geom = models.MultiPolygonField(srid=3435)
     objects = models.GeoManager()
+
+    def __unicode__(self):
+        return self.name
 
 class TifProjectionReports(models.Model):
     tif = models.ForeignKey(TifDistricts, null=True, blank=True)

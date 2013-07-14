@@ -1,5 +1,5 @@
 from django.contrib.gis import admin
-from illuminator.models import Ward, TifDistricts, PinsMaster
+from illuminator.models import Ward, TifDistrict, PinsMaster
 
 class WardAdmin(admin.GeoModelAdmin):
     search_fields = ['ward', 'alderman']
@@ -7,8 +7,9 @@ class WardAdmin(admin.GeoModelAdmin):
 admin.site.register(Ward, WardAdmin)
 
 class TifAdmin(admin.GeoModelAdmin):
-    pass
-admin.site.register(TifDistricts, TifAdmin)
+    search_fields = ['name', 'ref_number']
+    list_display = ('name', 'ref_number')
+admin.site.register(TifDistrict, TifAdmin)
 
 class PinsAdmin(admin.ModelAdmin):
     pass
