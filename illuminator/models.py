@@ -42,5 +42,5 @@ class Overlap(models.Model):
     overlap = models.MultiPolygonField(srid=3435)
     
     def __unicode__(self):
-        return 'TIF %s area overlapping Ward %s' % (self.tif.tif_id, self.ward.ward)
+        return 'TIF %s area overlapping Ward %s' % (self.tif.ref_number, self.ward.ward)
 

@@ -36,8 +36,8 @@ class Command(BaseCommand):
                 if row.get('TIF'):
                     tif_id = 'T-%s' % row.get('TIF').zfill(3)
                     revenue[tif_id] = {
-                        'revenue2010': row.get('REV2010'),
-                        'revenue2011': row.get('REV2011'),
+                        'revenue2010': row.get('REV2010').replace(',', ''),
+                        'revenue2011': row.get('REV2011').replace(',', ''),
                     }
         tif_id_ref = json.loads(xref.read())
         data_layer = DataSource(datafile)[0]
