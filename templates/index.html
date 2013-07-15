@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="{% static 'css/leaflet.ie.css' %}" />
+    <![endif]-->
+{% endblock %}
 {% block content %}
-<h1>It worked! </h1>
+<div class="row">
+    <div class="span12" id="map" style="height:600px; width: 100%; margin-left:0;"></div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span4">
+            <h2>One</h2>
+        </div>
+        <div class="span4">
+            <h2>Two</h2>
+        </div>
+        <div class="span4">
+            <h2>Three</h2>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="{% static 'js/jquery.min.js' %}"><\/script>')</script>
+    <script type="text/javascript" src="{% static 'js/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/wax.leaf.min.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}
