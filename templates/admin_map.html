@@ -4,8 +4,20 @@
        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.ie.css" />
     <![endif]-->
     <script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
-{% load static %}
+{% load static from staticfiles %}
 {% endblock %}
-<span id="{{ id }}_admin_map">
-<div id="{{ id }}_map"></div>
-</span>
+<div id="map" style="height:500px; width:500px;"></div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{% static 'js/jquery.min.js' %}"><\/script>')</script>
+<script src="{% static 'js/app.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var tiles = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        var geojson = {{geojson|safe}}
+        console.log(geojson);
+        var map = L.map('map').fitBounds(geojson.properties.bbox);
+        L.tileLayer(tiles).addTo(map);
+        L.geoJson(geojson).addTo(map);
+    })
+</script>
