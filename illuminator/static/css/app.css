@@ -1,3 +1,19 @@
 .leaflet-control-zoom {
     margin-left: 40px !important;
 }
+.map-search {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    z-index: 999;
+}
+
+#refine {
+    position: relative;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    white-space: normal;
+    background-color: #fff;
+    padding: 10px 19px;
+}

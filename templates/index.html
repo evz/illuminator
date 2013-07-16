@@ -8,6 +8,11 @@
 {% endblock %}
 {% block content %}
 <div class="row">
+    <div class="input-append map-search">
+        <input class="span3" type="text" />
+        <button class="btn search" type="button">Search</button>
+        <div id="refine"></div>
+    </div>
     <div class="span12" id="map" style="height:600px; width: 100%; margin-left:0;"></div>
 </div>
 <div class="container">
@@ -28,6 +33,7 @@
 {% block js %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="{% static 'js/jquery.min.js' %}"><\/script>')</script>
+    <script type="text/javascript" src="{% static 'js/ejs_production.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/wax.leaf.min.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
