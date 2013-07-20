@@ -1,11 +1,14 @@
-"""
-"""
 from django.core.management.base import BaseCommand, CommandError, handle_default_options
-from optparse import make_option
 
 from django.contrib.gis.utils import LayerMapping
 from illuminator.models import Ward
-import os.path
+import os
+import zipfile
+from cStringIO import StringIO
+import requests
+
+SHP = 'https://data.cityofchicago.org/api/geospatial/xt4z-bnwh?method=export&format=Shapefile'
+
 class Command(BaseCommand):
     args=''
     help=''
@@ -27,9 +30,17 @@ class Command(BaseCommand):
             'shape_area': 'SHAPE_AREA',
             'shape_len': 'SHAPE_LEN',
             'geom': 'MULTIPOLYGON'
-         }
-         # The mapping is a dictionary
-        datafile = os.path.join(os.path.curdir,'data/shp/wards/Wards.shp')
-        lm = LayerMapping(Ward, datafile, mapping)
-        lm.save(strict=True,progress=True)
+        }
+        shp_data = requests.get(SHP)
+        if shp_data.status_code != 200:
+            raise CommandError('City data portal returned a %s status when downloading Wards shapefile: %s' % (shp_data.status_code, shp_data.content))
+        else:
+            s = StringIO(shp_data.content)
+            z = zipfile.ZipFile(s)
+            data_path = os.path.join(os.path.curdir,'data/shp/wards')
+            fname = [f for f in z.namelist() if f.endswith('shp')][0]
+            z.extractall(data_path)
+            datafile = os.path.join(data_path, fname)
+            lm = LayerMapping(Ward, datafile, mapping)
+            lm.save(strict=True,progress=True)
 

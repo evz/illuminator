@@ -36,6 +36,17 @@ class TifDistrict(models.Model):
     def __unicode__(self):
         return self.name
 
+class TifProjectionReport(models.Model):
+    tif = models.ForeignKey(TifDistrict)
+    report_group = models.CharField(max_length=25)
+    item = models.CharField(max_length=100)
+    year = models.CharField(max_length=4)
+    amount = models.IntegerField()
+    end_date = models.DateTimeField()
+
+    def __unicode__(self):
+        return '%s for %s' % (self.item, self.year)
+
 class Overlap(models.Model):
     ward = models.ForeignKey(Ward)
     tif = models.ForeignKey(TifDistrict)
