@@ -51,7 +51,9 @@ class Command(BaseCommand):
                             f[mapping.get(k)] = None
                     elif mapping.get(k) == 'ref_number':
                         print feat.get('REF')
-                        f['ref_number'] = '-'.join([feat.get('REF').split('-')[0], feat.get('REF').split('-')[1].zfill(3)])
+                        ref_number = '-'.join([feat.get('REF').split('-')[0], str(int(feat.get('REF').split('-')[1])).zfill(3)])
+                        print ref_number
+                        f['ref_number'] = ref_number
                     else:
                         f[mapping.get(k)] = feat.get(k)
                 f['geom'] = verify_geom(feat.geom, TifDistrict._meta.get_field('geom'))

@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 del row['tif_reference_number']
                 del row['tif_name']
                 row['tif'] = tif
-                row['amount'] = int(row['amount'].replace(',',''))
+                row['amount'] = int(float(row['amount'].replace(',','')))
                 row['end_date'] = datetime.strptime(row['end_date'], '%Y-%m-%dT%H:%M:%S')
                 proj_report = TifProjectionReport(**row)
                 proj_report.save()
