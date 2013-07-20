@@ -1,5 +1,5 @@
 from django.contrib.gis import admin
-from illuminator.models import Ward, TifDistrict, Overlap
+from illuminator.models import Ward, TifDistrict, Overlap, TifProjectionReport
 from illuminator.widgets import LeafletWidget
 
 class WardAdmin(admin.GeoModelAdmin):
@@ -15,6 +15,10 @@ class TifAdmin(admin.GeoModelAdmin):
     map_template = 'admin_map.html'
     widget = LeafletWidget
 admin.site.register(TifDistrict, TifAdmin)
+
+class ProjAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(TifProjectionReport, ProjAdmin)
 
 class OverlapAdmin(admin.GeoModelAdmin):
     search_fields = ['tif__name', 'ward__ward']
