@@ -45,6 +45,7 @@
             $('#refine').append(tpl.render({locations:locations}));
             var width = $('.map-search input').width() + $('.map-search button').width();
             $('#refine').width(width);
+            $('#refine').show();
             $('.refine-search').on('click', function(e){
                 e.preventDefault();
                 var data = $(this).parent().data('latlng').split(',');
